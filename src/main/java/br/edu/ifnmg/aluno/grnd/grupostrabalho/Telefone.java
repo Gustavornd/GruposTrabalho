@@ -20,15 +20,19 @@ public class Telefone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Byte ddd; //38
+    private Integer numero;// 12345678
+
+    public Telefone(Byte ddd, Integer numero) {
+        this.ddd = ddd;
+        this.numero = numero;
+    }
     
-    private Byte ddd;
-    private Integer numero;
 
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
-    
-
     public Long getId() {
         return id;
     }
@@ -55,8 +59,6 @@ public class Telefone implements Serializable {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Hash/Equal/toString">
-    
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -77,12 +79,11 @@ public class Telefone implements Serializable {
         }
         return hashCode() == obj.hashCode();
     }
-    //</editor-fold>
-    
 
     @Override
     public String toString() {
-        return "br.edu.ifnmg.aluno.grnd.grupostrabalho.Telefone[ id=" + id + " ]";
+        return "Telefone{" + "id=" + id + ", ddd=" + ddd + ", numero=" + numero + '}';
     }
-    
+    //</editor-fold>
+
 }

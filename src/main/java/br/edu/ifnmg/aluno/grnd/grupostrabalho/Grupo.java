@@ -5,12 +5,18 @@
 package br.edu.ifnmg.aluno.grnd.grupostrabalho;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,7 +27,7 @@ public class Grupo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 65)
@@ -29,8 +35,45 @@ public class Grupo implements Serializable {
 
     private Boolean ativo = Boolean.TRUE;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            mappedBy = "grupo")
+    private List<Atuacao> atuacao;
+
+    @OneToOne(cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "lider_id")
+    private Pessoa lider;
+
+    //<editor-fold defaultstate="collapsed" desc="Construtor">
+    public Grupo() {
+        this.atuacao = new ArrayList<>();
+    }
+
+    public Grupo(Long id, String nome, List<Atuacao> atuacao, Pessoa lider) {
+        this.id = id;
+        this.nome = nome;
+        this.atuacao = atuacao;
+        this.lider = lider;
+    }
+
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
-    
+    public List<Atuacao> getAtuacao() {
+        return atuacao;
+    }
+
+    public void setAtuacao(List<Atuacao> atuacao) {
+        this.atuacao = atuacao;
+    }
+
+    public Pessoa getLider() {
+        return lider;
+    }
+
+    public void setLider(Pessoa lider) {
+        this.lider = lider;
+    }
 
     public Long getId() {
         return id;
@@ -58,7 +101,6 @@ public class Grupo implements Serializable {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Hash/Equals/toString">
-    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -79,14 +121,15 @@ public class Grupo implements Serializable {
         }
         return hashCode() == obj.hashCode();
     }
-    
-    //</editor-fold>
 
-    
-    
     @Override
     public String toString() {
-        return "br.edu.ifnmg.aluno.grnd.grupostrabalho.Grupo[ id=" + id + " ]";
+        return "Grupo{" + "id=" + id
+                + ", nome=" + nome
+                + ", ativo=" + ativo
+                + ", atuacao=" + atuacao
+                + ", lider=" + lider + '}';
     }
 
+    //</editor-fold>
 }

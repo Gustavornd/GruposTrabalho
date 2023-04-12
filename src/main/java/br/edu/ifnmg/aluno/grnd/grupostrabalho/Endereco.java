@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifnmg.aluno.grnd.grupostrabalho;
 
 import java.io.Serializable;
@@ -18,7 +14,8 @@ import javax.persistence.Id;
  * @author gusta
  */
 @Entity
-public class Endereco implements Serializable {
+public class Endereco 
+        implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,8 +32,22 @@ public class Endereco implements Serializable {
     
     @Column(length = 25)
     private String bairro;
+
+    
+    //<editor-fold defaultstate="collapsed" desc="Construtores">
     
 
+    public Endereco() {
+    }
+    
+    public Endereco(TipoLogradouro tipoLogradouro, String logradouro, Integer numero, String bairro) {
+        this.tipoLogradouro = tipoLogradouro;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+    }
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
     public String getLogradouro() {
         return logradouro;
