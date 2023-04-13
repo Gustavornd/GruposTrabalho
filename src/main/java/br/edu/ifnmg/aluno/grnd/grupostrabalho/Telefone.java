@@ -26,11 +26,15 @@ public class Telefone implements Serializable {
     private Byte ddd; //38
     private Integer numero;// 12345678
 
+    //<editor-fold defaultstate="collapsed" desc="Construtores">
+    public Telefone() {
+    }
+
     public Telefone(Byte ddd, Integer numero) {
         this.ddd = ddd;
         this.numero = numero;
     }
-    
+//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
     public Long getId() {

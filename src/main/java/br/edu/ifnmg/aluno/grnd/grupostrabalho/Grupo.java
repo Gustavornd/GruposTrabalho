@@ -5,9 +5,9 @@
 package br.edu.ifnmg.aluno.grnd.grupostrabalho;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,21 +43,10 @@ public class Grupo implements Serializable {
     @OneToOne(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "lider_id")
+    @JsonbTransient
     private Pessoa lider;
 
-    //<editor-fold defaultstate="collapsed" desc="Construtor">
-    public Grupo() {
-        this.atuacao = new ArrayList<>();
-    }
 
-    public Grupo(Long id, String nome, List<Atuacao> atuacao, Pessoa lider) {
-        this.id = id;
-        this.nome = nome;
-        this.atuacao = atuacao;
-        this.lider = lider;
-    }
-
-    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
     public List<Atuacao> getAtuacao() {
         return atuacao;

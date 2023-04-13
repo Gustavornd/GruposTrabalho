@@ -14,7 +14,7 @@ import javax.persistence.Id;
  * @author gusta
  */
 @Entity
-public class Endereco 
+public class Endereco
         implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,22 +24,19 @@ public class Endereco
 
     @Enumerated
     private TipoLogradouro tipoLogradouro;
-    
+
     @Column(length = 150)
     private String logradouro;
-    
+
     private Integer numero;
-    
+
     @Column(length = 25)
     private String bairro;
 
-    
     //<editor-fold defaultstate="collapsed" desc="Construtores">
-    
-
     public Endereco() {
     }
-    
+
     public Endereco(TipoLogradouro tipoLogradouro, String logradouro, Integer numero, String bairro) {
         this.tipoLogradouro = tipoLogradouro;
         this.logradouro = logradouro;
@@ -47,7 +44,7 @@ public class Endereco
         this.bairro = bairro;
     }
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="Get/Set">
     public String getLogradouro() {
         return logradouro;
@@ -88,14 +85,9 @@ public class Endereco
     public void setTipoLogradouro(TipoLogradouro tipoLogradouro) {
         this.tipoLogradouro = tipoLogradouro;
     }
-    
-    
 
 //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="Hash/Equals/toString">
-    
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -114,7 +106,12 @@ public class Endereco
         if (getClass() != obj.getClass()) {
             return false;
         }
-        return hashCode()== obj.hashCode();
+        return hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" + "id=" + id + ", tipoLogradouro=" + tipoLogradouro + ", logradouro=" + logradouro + ", numero=" + numero + ", bairro=" + bairro + '}';
     }
     //</editor-fold>
 

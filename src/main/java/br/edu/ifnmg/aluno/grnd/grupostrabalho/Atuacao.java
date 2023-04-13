@@ -7,6 +7,7 @@ package br.edu.ifnmg.aluno.grnd.grupostrabalho;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,10 +33,12 @@ public class Atuacao implements Serializable {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pessoa_id")
+    @JsonbTransient
     private Pessoa pessoa;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "grupo_id")
+    @JsonbTransient
     private Grupo grupo;
 
     //<editor-fold defaultstate="collapsed" desc="Construtores">

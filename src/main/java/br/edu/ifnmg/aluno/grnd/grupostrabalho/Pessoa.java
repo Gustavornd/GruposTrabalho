@@ -6,6 +6,7 @@ package br.edu.ifnmg.aluno.grnd.grupostrabalho;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -25,6 +28,26 @@ import javax.persistence.Transient;
  * @author gusta
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name = "Pessoa.findAll",
+            query = "SELECT p FROM Pessoa p"),
+    @NamedQuery(
+            name = "Pessoa.findNome",
+            query = "SELECT p.nome FROM Pessoa p"),
+    @NamedQuery(
+            name = "Pessoa.findNomeEndereco",
+            query = "SELECT p.nome, p.endereco FROM Pessoa p"),
+    @NamedQuery(
+            name = "Pessoa.findPessoaInAvenida",
+            query = "SELECT p FROM Pessoa p WHERE p.endereco.tipoLogradouro = 1"),
+    @NamedQuery(
+            name = "Pessoa.findPessoaNotPraca",
+            query = "SELECT p FROM Pessoa p WHERE p.endereco.tipoLogradouro != 2"),
+    @NamedQuery(
+            name = "Pessoa.findPessoaNomeTelefone",
+            query = "SELECT p.nome, t FROM Pessoa p, IN (p.telefones) t")
+})
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,7 +89,6 @@ public class Pessoa implements Serializable {
     public Pessoa() {
         this.telefones = new ArrayList<>();
         this.atuacoes = new ArrayList<>();
-        this.liderGrupos = new ArrayList<>();
     }
 
     public Pessoa(Long id, String nome, String email, LocalDate nascimento, Byte idade) {
@@ -141,15 +163,13 @@ public class Pessoa implements Serializable {
 
     public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
+        this.idade = (byte) nascimento.until(LocalDate.now(), ChronoUnit.YEARS);
     }
 
     public Byte getIdade() {
         return idade;
     }
 
-    public void setIdade(Byte idade) {
-        this.idade = idade;
-    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Hashcode/Equals/toString">
@@ -183,9 +203,7 @@ public class Pessoa implements Serializable {
                 + ", nascimento=" + nascimento
                 + ", idade=" + idade
                 + ", endereco=" + endereco
-                + ", telefones=" + telefones
-                + ", atuacoes=" + atuacoes
-                + ", liderGrupos=" + liderGrupos + '}';
+                + '}';
     }
 
     //</editor-fold>
